@@ -2,8 +2,8 @@ name: Build and Deploy Satis to Pages
 
 on:
   push:
-    branches: [ "main" ] # 当你修改 satis.json 增加新包时触发
-  repository_dispatch: # 当你的私有包（如 money-calc）打 Tag 时，通过 Webhook 触发更新
+    branches: [ "main" ]
+  repository_dispatch:
     types: [ satis-update ]
 
 permissions:
@@ -30,12 +30,24 @@ jobs:
       - name: Install Satis
         run: composer create-project composer/satis:^2.0 --stability=dev --no-dev
         
-       # 👇👇👇 添加这一行：用真实的 Token 替换占位符 👇👇👇
-      - name: Replace GitHub Token
-        run: sed -i "s/GITHUB_TOKEN_PLACEHOLDER/${{ secrets.GITHUB_TOKEN }}/g" satis.json
+      - name: Validate and Replace GitHub Token
+        run: |
+          if [ -z "${{ secrets.BOT_GITHUB_TOKEN }}" ]; then
+            echo "❌ Error: BOT_GITHUB_TOKEN is not configured"
+            exit 1
+          fi
+          
+          sed -i "s/GITHUB_TOKEN_PLACEHOLDER/${{ secrets.BOT_GITHUB_TOKEN }}/g" satis.json
+          
+          if grep -q "GITHUB_TOKEN_PLACEHOLDER" satis.json; then
+            echo "❌ Error: Token replacement failed"
+            exit 1
+          fi
         
       - name: Build Satis Repository
-        run: php satis/bin/satis build satis.json public/
+        env:
+          COMPOSER_MEMORY_LIMIT: -1
+        run: php satis/bin/satis build --no-ansi --verbose satis.json public/
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
