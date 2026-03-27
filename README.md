@@ -21,7 +21,7 @@
 然后安装包，例如：
 
 ```bash
-composer require jinridaren-group/money-calc
+composer require jinridaren/money-calc
 ```
 
 ## Build & Deploy
@@ -39,13 +39,13 @@ composer require jinridaren-group/money-calc
 
 ## 如何新增私有包
 
-以新增 `jinridaren-org/foo-bar` 为例：
+以新增 `jinridaren/foo-bar` 为例：
 
 1. 创建包仓库（如 `foo-bar`），并确保仓库内 `composer.json` 至少包含：
 
 ```json
 {
-  "name": "jinridaren-org/foo-bar", 
+  "name": "jinridaren/foo-bar", 
   "type": "library",
   "autoload": {
     "psr-4": {
@@ -83,7 +83,7 @@ curl -I https://jinridaren-org.github.io/composer-packages/packages.json
 
 ```bash
 composer clear-cache
-composer require jinridaren-org/foo-bar:^1.0
+composer require jinridaren/foo-bar:^1.0
 ```
 
 ### 常见问题
