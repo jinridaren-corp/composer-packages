@@ -84,6 +84,10 @@ curl -I https://jinridaren-org.github.io/composer-packages/packages.json
 ```bash
 composer clear-cache
 composer require jinridaren/foo-bar:^1.0
+composer require jinridaren-org/money-calc -W
+composer require jinridaren-org/bus-com-utils -W
+
+
 ```
 
 ### 常见问题
