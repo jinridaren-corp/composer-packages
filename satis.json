@@ -5,6 +5,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/jinridaren-org/money-calc.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/jinridaren-org/bus-com-utils.git"
         }
     ],
     "require-all": true,
