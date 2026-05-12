@@ -21,7 +21,7 @@
 然后安装包，例如：
 
 ```bash
-composer require jinridaren/money-calc
+composer require jinridaren-org/money-calc
 ```
 
 ## Build & Deploy
